@@ -79,7 +79,7 @@ We assume you have an SSH private key at `/abc/key`. If you don't, simply avoid 
 ### From remote to local
 
 ```bash
-docker run -d -v /abc/key:/home/user/id_rsa:ro -v /dir2:/destination qmcgaw/rsync sshUser@sshHost:/dir1/ /destination/
+docker run -d -v /abc/key:/home/user/id_rsa:ro -v /dir2:/destination qmcgaw/rsync:ssh-client sshUser@sshHost:/dir1/ /destination/
 ```
 
 Replace `/abc/key`, `/dir2` and `sshUser@sshHost:/dir1` by real values of yours.
@@ -93,7 +93,7 @@ docker-compose up -d
 ### From local to remote
 
 ```bash
-docker run -d -v /abc/key:/home/user/id_rsa:ro -v /dir1:/source:ro qmcgaw/rsync /source/ sshUser@sshHost:/dir2/
+docker run -d -v /abc/key:/home/user/id_rsa:ro -v /dir1:/source:ro qmcgaw/rsync:ssh-client /source/ sshUser@sshHost:/dir2/
 ```
 
 Replace `/abc/key`, `/dir1` and `sshUser@sshHost:/dir2` by real values of yours.
