@@ -106,6 +106,7 @@ docker-compose up -d
 
 ## TODOs
 
+- [ ] Periodic executions with Golang binary
 - [ ] Rsync daemon with SSH server
 - [ ] Healthcheck
 
