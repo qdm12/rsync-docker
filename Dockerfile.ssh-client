@@ -38,4 +38,4 @@ RUN mkdir -p "/home/user/.ssh" && \
 VOLUME ["/source", "/destination"]
 USER 1000
 ENTRYPOINT ["/rsync"]
-CMD ["--archive","--compress","--progress","--delete","/source/","/destination/"]
+CMD ["--help"]
