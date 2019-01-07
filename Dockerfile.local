@@ -30,7 +30,6 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
       ram-usage="MB" \
       cpu-usage=""
 VOLUME ["/source", "/destination"]
-COPY --chown=1000 --from=builder /rsync/rsync /rsync
-USER 1000
+COPY --from=builder /rsync/rsync /rsync
 ENTRYPOINT ["/rsync"]
-CMD ["--archive","--compress","--progress","--delete","/source/","/destination/"]
+CMD ["--archive","--no-links","--info=progress2","--delete","--quiet","/source/","/destination/"]
