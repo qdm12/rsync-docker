@@ -36,8 +36,6 @@ RUN mkdir -p "/home/user/.ssh" && \
     adduser -D -u 1000 user && \
     echo "user:$(date +%s | sha256sum | base64 | head -c 32)" | chpasswd &> /dev/null
 VOLUME ["/source", "/destination"]
-COPY --chown=1000 entrypoint-ssh-client.sh /entrypoint.sh
-RUN chmod 500 entrypoint.sh
 USER 1000
-#ENTRYPOINT ["/rsync"]
-#CMD ["--archive","--compress","--progress","--delete","/source/","/destination/"]
+ENTRYPOINT ["/rsync"]
+CMD ["--archive","--compress","--progress","--delete","/source/","/destination/"]
