@@ -1,7 +1,7 @@
 # Rsync Docker
 
 - Rsync only, **790KB**, `qmcgaw/rsync`
-- Rsync + SSH, *5.2MB*, `qmcgaw/rsync-ssh`
+- Rsync + SSH, *5.2MB*, `qmcgaw/rsync:ssh-client`
 
 [![rsync-docker](https://github.com/qdm12/rsync-docker/raw/master/title.png)](https://hub.docker.com/r/qmcgaw/rsync)
 
@@ -50,17 +50,17 @@ You can change the arguments given to rsync with for example:
 docker run -d -v /dir1:/source:ro -v /dir2:/destination qmcgaw/rsync --quiet /source/ /destination/
 ```
 
-## Rsync + SSH
+## Rsync + SSH Client
 
 [![Build Status](https://travis-ci.org/qdm12/rsync-docker.svg?branch=master)](https://travis-ci.org/qdm12/rsync-docker)
-[![Docker Build Status](https://img.shields.io/docker/build/qmcgaw/rsync-ssh.svg)](https://hub.docker.com/r/qmcgaw/rsync-ssh)
+[![Docker Build Status](https://img.shields.io/docker/build/qmcgaw/rsync:ssh-client.svg)](https://hub.docker.com/r/qmcgaw/rsync:ssh-client)
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/qmcgaw/rsync-ssh.svg)](https://hub.docker.com/r/qmcgaw/rsync-ssh)
-[![Docker Stars](https://img.shields.io/docker/stars/qmcgaw/rsync-ssh.svg)](https://hub.docker.com/r/qmcgaw/rsync-ssh)
-[![Docker Automated](https://img.shields.io/docker/automated/qmcgaw/rsync-ssh.svg)](https://hub.docker.com/r/qmcgaw/rsync-ssh)
+[![Docker Pulls](https://img.shields.io/docker/pulls/qmcgaw/rsync:ssh-client.svg)](https://hub.docker.com/r/qmcgaw/rsync:ssh-client)
+[![Docker Stars](https://img.shields.io/docker/stars/qmcgaw/rsync:ssh-client.svg)](https://hub.docker.com/r/qmcgaw/rsync:ssh-client)
+[![Docker Automated](https://img.shields.io/docker/automated/qmcgaw/rsync:ssh-client.svg)](https://hub.docker.com/r/qmcgaw/rsync:ssh-client)
 
-[![Image size](https://images.microbadger.com/badges/image/qmcgaw/rsync-ssh.svg)](https://microbadger.com/images/qmcgaw/rsync-ssh)
-[![Image version](https://images.microbadger.com/badges/version/qmcgaw/rsync-ssh.svg)](https://microbadger.com/images/qmcgaw/rsync-ssh)
+[![Image size](https://images.microbadger.com/badges/image/qmcgaw/rsync:ssh-client.svg)](https://microbadger.com/images/qmcgaw/rsync:ssh-client)
+[![Image version](https://images.microbadger.com/badges/version/qmcgaw/rsync:ssh-client.svg)](https://microbadger.com/images/qmcgaw/rsync:ssh-client)
 
 | Image size | RAM usage | CPU usage |
 | --- | --- | --- |
@@ -71,6 +71,8 @@ It is based on:
 - [Alpine 3.8](https://alpinelinux.org)
 - [Rsync 3.1.3 built statically from source](https://rsync.samba.org/)
 - [OpenSSH Client](https://pkgs.alpinelinux.org/package/v3.8/main/x86_64/openssh-client)
+
+Note that you also need an Rsync daemon and SSH server to be running on the remote host.
 
 We assume you have an SSH private key at `/abc/key`. If you don't, simply avoid mounting the key and enter your SSH password manually (not recommended).
 
@@ -104,6 +106,7 @@ docker-compose up -d
 
 ## TODOs
 
+- [ ] Rsync daemon with SSH server
 - [ ] Healthcheck
 
 ## License
