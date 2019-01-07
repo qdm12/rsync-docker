@@ -1,0 +1,14 @@
+version: '3'
+services:
+  rsync:
+    build:
+      context: https://github.com/qdm12/rsync-docker.git
+      dockerfile: Dockerfile.ssh
+    image: qmcgaw/rsync-ssh
+    container_name: rsync-ssh
+    command: sshUser@sshHost:/source/ /destination/
+    volumes:
+      - ./key:/home/user/id_rsa:ro
+      - ./destination:/destination
+    network_mode: bridge
+    restart: always
