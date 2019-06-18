@@ -20,11 +20,11 @@ All Rsync are version 3.1.3, built from source with this [Dockerfile](https://gi
     - Small *12.2MB* Docker image
     - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync-ssh-client)
 - `qmcgaw/rsync:ssh-server`: Rsync with SSH server... *in progress*
+    - *13.3MB* Docker image
     - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync-ssh-server)
 
 ## TODOs
 
-- [ ] Rsync daemon with SSH server
 - [ ] Examples
 - [ ] Periodic executions with Golang binary
 - [ ] Healthcheck

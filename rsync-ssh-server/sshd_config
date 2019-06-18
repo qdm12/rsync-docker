@@ -1,0 +1,22 @@
+Protocol 2
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+Port 22
+
+# Auth
+PermitRootLogin without-password
+PubkeyAuthentication yes
+PasswordAuthentication no
+
+# Restrictions
+PermitTunnel yes
+AllowTcpForwarding yes
+X11Forwarding no
+AllowStreamLocalForwarding no
+
+# Other
+Banner /etc/banner
+UseDNS no
+Compression delayed
+LogLevel VERBOSE
