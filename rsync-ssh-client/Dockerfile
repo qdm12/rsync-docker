@@ -17,16 +17,10 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
     org.label-schema.docker.cmd.devel="docker run -it --rm qmcgaw/rsync:ssh-client" \
     org.label-schema.docker.params="" \
     org.label-schema.version=${RSYNC_VERSION} \
-    image-size="12.2MB" \
-    ram-usage="Medium to High" \
-    cpu-usage="Medium to High"
-COPY --chown=1000 --from=qmcgaw/rsync:builder /rsync/rsync /rsync
+    image-size="12.2MB"
 RUN apk --update --no-cache --progress -q add openssh-client && \
     rm  -rf /tmp/* /var/cache/apk/*
-RUN mkdir -p "/home/user/.ssh" && \
-    adduser -D -u 1000 user && \
-    echo "user:$(date +%s | sha256sum | base64 | head -c 32)" | chpasswd &> /dev/null
-VOLUME ["/source", "/destination"]
-USER 1000
-ENTRYPOINT ["/rsync"]
+COPY --from=qmcgaw/rsync:builder /rsync/rsync /usr/bin/rsync
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["--help"]
+COPY entrypoint.sh /usr/bin/entrypoint.sh
