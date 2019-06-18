@@ -7,7 +7,7 @@
 
 | Image size | RAM usage | CPU usage |
 | --- | --- | --- |
-| 790KB | ?MB | Low |
+| 790KB | Medium to High | Medium to High |
 
 It is based on:
 
@@ -37,5 +37,5 @@ To copy from `/yourpath1` to `/yourpath2`, you can use
 docker run -it --rm --network=none \
 -v /yourpath1:/source:ro \
 -v /yourpath2:/destination \
-qmcgaw/rsync --append /source/ /destination
+qmcgaw/rsync --append --recursive --info=progress2 /source/ /destination
 ```

@@ -7,7 +7,7 @@
 
 | Image size | RAM usage | CPU usage |
 | --- | --- | --- |
-| 5.2MB | ?MB | Low |
+| 12.2MB | Medium to High | Medium to High |
 
 It is based on:
 

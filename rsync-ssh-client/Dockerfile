@@ -17,9 +17,9 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
     org.label-schema.docker.cmd.devel="docker run -it --rm qmcgaw/rsync:ssh-client" \
     org.label-schema.docker.params="" \
     org.label-schema.version=${RSYNC_VERSION} \
-    image-size="MB" \
-    ram-usage="MB" \
-    cpu-usage=""
+    image-size="12.2MB" \
+    ram-usage="Medium to High" \
+    cpu-usage="Medium to High"
 COPY --chown=1000 --from=qmcgaw/rsync:builder /rsync/rsync /rsync
 RUN apk --update --no-cache --progress -q add openssh-client && \
     rm  -rf /tmp/* /var/cache/apk/*

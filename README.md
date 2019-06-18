@@ -17,7 +17,7 @@ All Rsync are version 3.1.3, built from source with this [Dockerfile](https://gi
     - Tiny **790KB** Docker image
     - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync)
 - `qmcgaw/rsync:ssh-client`: Rsync with SSH client
-    - Small *5.2MB* Docker image
+    - Small *12.2MB* Docker image
     - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync-ssh-client)
 - `qmcgaw/rsync:ssh-server`: Rsync with SSH server... *in progress*
     - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync-ssh-server)
