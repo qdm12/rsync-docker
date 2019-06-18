@@ -28,3 +28,14 @@ qmcgaw/rsync --help
 You can use any Rsync commands instead of `--help`, except the ones depending on networking such as SSH. For this, use the other Docker image such as `qmcgaw/rsync:ssh-client`.
 
 ## Examples
+
+### Copy directories
+
+To copy from `/yourpath1` to `/yourpath2`, you can use
+
+```sh
+docker run -it --rm --network=none \
+-v /yourpath1:/source:ro \
+-v /yourpath2:/destination \
+qmcgaw/rsync --append /source/ /destination
+```
