@@ -1,13 +1,13 @@
 # Rsync with SSH client
 
-*This is the Rsync static binary with an OpenSSH client in **790KB** Docker image*
+*This is the Rsync static binary with an OpenSSH client in a **12.2MB** Docker image*
 
 [![Image size](https://images.microbadger.com/badges/image/qmcgaw/rsync:ssh-client.svg)](https://microbadger.com/images/qmcgaw/rsync:ssh-client)
 [![Image version](https://images.microbadger.com/badges/version/qmcgaw/rsync:ssh-client.svg)](https://microbadger.com/images/qmcgaw/rsync:ssh-client)
 
 | Image size | RAM usage | CPU usage |
 | --- | --- | --- |
-| 12.2MB | Medium to High | Medium to High |
+| 12.2MB | Low to High | Low to High |
 
 It is based on:
 
@@ -17,30 +17,27 @@ It is based on:
 
 ## Setup
 
-1. You will need an Rsync daemon and SSH server to be running on the remote host. You might want to use the `qmcgaw/rsync:ssh-server` Docker image for that.
+- You have an SSH key (recommended) at `~/.ssh/id_rsa`:
 
-1. Depending on your case:
-    - You have an SSH key (recommended) at `~/.ssh/id_rsa`:
+    ```sh
+    docker run -it --rm -v ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro qmcgaw/rsync:ssh-client --help
+    ```
 
-        ```sh
-        docker run -it --rm \
-        -v ~/.ssh/id_rsa:/home/user/id_rsa:ro \
-        qmcgaw/rsync:ssh-client --help
-        ```
+- You have a usernamd and password for SSH:
 
-    - You have a usernamd and password for SSH:
-
-        ```sh
-        docker run -it --rm qmcgaw/rsync:ssh-client --help
-        ```
+    ```sh
+    docker run -it --rm qmcgaw/rsync:ssh-client --help
+    ```
 
 ## Examples
 
 ### Copy from remote to local
 
 1. We assume:
-    - The remote SSH host is `192.168.1.100`
-    - The remote SSH host is running on port `22`
+    - The remote SSH host
+        - Hostname is `192.168.1.100`
+        - SSH port is `22`
+        - Has an SSH daemon and Rsync daemon running
     - Your remote SSH username is `remoteuser`
     - You have your SSH private key at `~/.ssh/id_rsa`
     - You want to sync the remote directory `remotedir` to your local directory `/localdir`
@@ -48,7 +45,7 @@ It is based on:
 
     ```sh
     docker run -it --rm \
-    -v ~/.ssh/id_rsa:/home/user/id_rsa:ro \
+    -v ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro \
     -v /localdir:/localdir \
     qmcgaw/rsync:ssh-client \
     remoteuser@192.168.1.100:/remotedir/ /localdir/
@@ -57,16 +54,18 @@ It is based on:
 ### Copy from local to remote
 
 1. We assume:
-    - The remote SSH host is `192.168.1.100`
-    - The remote SSH host is running on port `22`
-    - Your remote SSH username is `remoteuser`
+    - The remote SSH host
+        - Hostname is `192.168.1.100`
+        - SSH port is `22`
+        - Has an SSH daemon and Rsync daemon running
+    - Your remote SSH username is `remoteuser` (or `root` to avoid file permission issues eventually)
     - You have your SSH private key at `~/.ssh/id_rsa`
     - You want to sync the local directory `/localdir` to the remote directory `remotedir`
 1. Use this command:
 
     ```sh
     docker run -it --rm \
-    -v ~/.ssh/id_rsa:/home/user/id_rsa:ro \
+    -v ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro \
     -v /localdir:/localdir \
     qmcgaw/rsync:ssh-client \
     /localdir/ remoteuser@192.168.1.100:/remotedir/

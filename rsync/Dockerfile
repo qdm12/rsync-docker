@@ -14,9 +14,7 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
     org.label-schema.docker.cmd.devel="docker run -it --rm qmcgaw/rsync --help" \
     org.label-schema.docker.params="" \
     org.label-schema.version=${RSYNC_VERSION} \
-    image-size="0.8MB" \
-    ram-usage="?" \
-    cpu-usage="Low"
+    image-size="0.8MB"
 VOLUME ["/source", "/destination"]
 COPY --from=qmcgaw/rsync:builder /rsync/rsync /rsync
 ENTRYPOINT ["/rsync"]

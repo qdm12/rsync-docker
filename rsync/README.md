@@ -37,5 +37,5 @@ To copy from `/yourpath1` to `/yourpath2`, you can use
 docker run -it --rm --network=none \
 -v /yourpath1:/source:ro \
 -v /yourpath2:/destination \
-qmcgaw/rsync --append --recursive --info=progress2 /source/ /destination
+qmcgaw/rsync --append --recursive -v --stats --progress /source/ /destination
 ```
