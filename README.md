@@ -11,16 +11,16 @@
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/y/qdm12/rsync-docker.svg)](https://github.com/qdm12/rsync-docker/issues)
 [![GitHub issues](https://img.shields.io/github/issues/qdm12/rsync-docker.svg)](https://github.com/qdm12/rsync-docker/issues)
 
-All Rsync are version 3.1.3, built from source with this [Dockerfile](Dockerfile)
+All Rsync are version 3.1.3, built from source with this [Dockerfile](https://github.com/qdm12/rsync-docker/blob/master/Dockerfile)
 
 - `qmcgaw/rsync`: Rsync only
     - Tiny **790KB** Docker image
-    - [Readme](rsync)
+    - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync)
 - `qmcgaw/rsync:ssh-client`: Rsync with SSH client
     - Small *5.2MB* Docker image
-    - [Readme](rsync-ssh-client)
+    - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync-ssh-client)
 - `qmcgaw/rsync:ssh-server`: Rsync with SSH server... *in progress*
-    - [Readme](rsync-ssh-server)
+    - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync-ssh-server)
 
 ## TODOs
 

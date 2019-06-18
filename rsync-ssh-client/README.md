@@ -1,6 +1,6 @@
 # Rsync with SSH client
 
-*This is the Rsync static binary in a **790KB** Docker image*
+*This is the Rsync static binary with an OpenSSH client in **790KB** Docker image*
 
 [![Image size](https://images.microbadger.com/badges/image/qmcgaw/rsync:ssh-client.svg)](https://microbadger.com/images/qmcgaw/rsync:ssh-client)
 [![Image version](https://images.microbadger.com/badges/version/qmcgaw/rsync:ssh-client.svg)](https://microbadger.com/images/qmcgaw/rsync:ssh-client)
