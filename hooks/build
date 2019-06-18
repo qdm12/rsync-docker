@@ -4,13 +4,13 @@ RSYNC_VERSION=3.1.3
 docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
              --build-arg VCS_REF=`git rev-parse --short HEAD` \
              --build-arg RSYNC_VERSION=$RSYNC_VERSION \
-             -t $IMAGE_NAME:builder .
+             -t $DOCKER_REPO:builder .
 
 docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
              --build-arg VCS_REF=`git rev-parse --short HEAD` \
              --build-arg RSYNC_VERSION=$RSYNC_VERSION \
-             -t $IMAGE_NAME rsync:latest
+             -t $IMAGE_NAME rsync
 docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
              --build-arg VCS_REF=`git rev-parse --short HEAD` \
              --build-arg RSYNC_VERSION=$RSYNC_VERSION \
-             -t $IMAGE_NAME:ssh-client rsync-ssh-client
+             -t $DOCKER_REPO:ssh-client rsync-ssh-client
