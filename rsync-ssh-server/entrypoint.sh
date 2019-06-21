@@ -2,7 +2,7 @@
 
 printf "\n =========================================\n"
 printf " =========================================\n"
-printf " ============== Rsync Docker =============\n"
+printf " =========== Rsync + SSH Server ==========\n"
 printf " =========================================\n"
 printf " =========================================\n"
 printf " == by github.com/qdm12 - Quentin McGaw ==\n\n"
@@ -32,20 +32,25 @@ if [ $success = 0 ]; then
     exit 1
 fi
 if [ ! -f "/etc/ssh/ssh_host_rsa_key" ]; then
-    printf "Cannot find RSA host key, generating it.\n"
+    printf "Info: Cannot find RSA host key, generating it...\n"
 	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &> /dev/null
+    printf "Info: Public RSA key:\n"
+    cat /etc/ssh/ssh_host_rsa_key.pub
 fi
 if [ ! -f "/etc/ssh/ssh_host_ecdsa_key" ]; then
-    printf "Cannot find ECDSA host key, generating it.\n"
+    printf "Info: Cannot find ECDSA host key, generating it...\n"
 	ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa &> /dev/null
+    printf "Info: Public ECDSA key:\n"
+    cat /etc/ssh/ssh_host_ecdsa_key.pub
 fi
 if [ ! -f "/etc/ssh/ssh_host_ed25519_key" ]; then
-    printf "Cannot find ED25519 host key, generating it.\n"
+    printf "Info: Cannot find ED25519 host key, generating it...\n"
 	ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519 &> /dev/null
+    printf "Info: Public ED25519 key:\n"
+    cat /etc/ssh/ssh_host_ed25519_key.pub
 fi
 echo "root:$(date +%s | sha256sum | base64 | head -c 32)" | chpasswd &> /dev/null
-mkdir /root/.ssh
-printf "Launching SSH server...\n"
+printf "Info: Launching SSH server...\n"
 /usr/sbin/sshd -D -e
 status=$?
 printf "\n =========================================\n"

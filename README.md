@@ -16,19 +16,23 @@ All Rsync are version 3.1.3, built from source with this [Dockerfile](https://gi
 - `qmcgaw/rsync`: Rsync only
     - Tiny **790KB** Docker image
     - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync)
-- `qmcgaw/rsync:ssh-client`: Rsync with SSH client (*untested yet*)
-    - Small *12.2MB* Docker image
+- `qmcgaw/rsync:ssh-client`: Rsync with SSH client
+    - *12.2MB* Docker image
     - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync-ssh-client)
-- `qmcgaw/rsync:ssh-server`: Rsync with SSH server (*untested yet*)
+- `qmcgaw/rsync:ssh-server`: Rsync with SSH server
     - *13.3MB* Docker image
     - [Readme](https://github.com/qdm12/rsync-docker/tree/master/rsync-ssh-server)
 
 ## TODOs
 
-- [ ] Examples
-- [ ] Periodic executions with Golang binary
-- [ ] Healthcheck
-- [ ] Run without root (file permission issues)
+1. Run without root
+    1. Fix bind mounted file permissions with Gosu, see [fixing permissions for Docker](http://gianluca.dellavedova.org/2018/09/04/fixing-permissions-for-docker/)
+    1. Create home directories etc. of non root users for the ssh-server variant
+1. More examples
+1. Periodic execution of Rsync SSH client
+    - With Golang binary, or with crontab
+1. SSH server with passwords
+1. Healthcheck
 
 ## License
 

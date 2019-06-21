@@ -17,6 +17,8 @@ It is based on:
 
 The SSH login is with `root` so there is no further file permissions issues with *rsync*
 
+Note that this image only works with SSH keys.
+
 ## Setup
 
 1. Create a directory `ssh` on your host containing 1 SSH public key per `.pub` files
@@ -41,6 +43,6 @@ The SSH login is with `root` so there is no further file permissions issues with
     -v /etc/ssh/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
     ```
 
-    to the Docker command above, so that your clients recognize the server fingerprints.
+    to the Docker command above, so that your clients recognize the server fingerprints and don't complain about MITM attacks.
 
 1. You can then connect to it with the `qmcgaw/rsync:client` container for example.
