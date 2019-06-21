@@ -1,0 +1,12 @@
+version: '3'
+services:
+  rsync:
+    build: .
+    image: qmcgaw/rsync:ssh-server
+    container_name: rsync-server
+    volumes:
+      - ./data:/data
+      - ./ssh:/ssh
+    network_mode: bridge
+    ports:
+      - 22:22/tcp

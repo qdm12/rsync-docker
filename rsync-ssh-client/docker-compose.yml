@@ -1,0 +1,13 @@
+version: '3'
+services:
+  rsync:
+    build: .
+    image: qmcgaw/rsync:ssh-client
+    container_name: rsync-client
+    volumes:
+      - ./data:/data
+      - ./ssh:/ssh
+    network_mode: bridge
+    environment:
+      - STRICT_HOST_KEY_CHECKING=no
+    command: -r --stats --progress root@host.docker.internal:/data/ /data

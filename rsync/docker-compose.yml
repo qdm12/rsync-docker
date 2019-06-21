@@ -1,0 +1,10 @@
+version: '3'
+services:
+  rsync:
+    build: .
+    image: qmcgaw/rsync
+    container_name: rsync
+    volumes:
+      - ./data:/data
+    network_mode: none
+    restart: always
