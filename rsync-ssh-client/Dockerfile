@@ -24,3 +24,4 @@ COPY --from=qmcgaw/rsync:builder /rsync/rsync /usr/bin/rsync
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["--help"]
 COPY entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod 500 /entrypoint.sh

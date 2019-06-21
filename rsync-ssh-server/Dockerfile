@@ -26,3 +26,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 COPY sshd_config /etc/ssh/sshd_config
 COPY --from=qmcgaw/rsync:builder /rsync/rsync /usr/bin/rsync
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod 500 /entrypoint.sh
