@@ -20,6 +20,7 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
     image-size="12.2MB"
 RUN apk --update --no-cache --progress -q add openssh-client && \
     rm  -rf /tmp/* /var/cache/apk/*
+ENV STRICT_HOST_KEY_CHECKING=yes
 COPY --from=qmcgaw/rsync:builder /rsync/rsync /usr/bin/rsync
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["--help"]
