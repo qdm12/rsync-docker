@@ -19,13 +19,19 @@ The SSH login is with `root` so there is no further file permissions issues with
 
 ## Setup
 
+1. Create a directory `ssh` on your host containing 1 SSH public key per `.pub` files
+
+    ```sh
+    mkdir ssh
+    cat ~/.ssh/id_rsa.pub > ssh/id_rsa.pub
+    cat ~/.ssh/custom.pub > ssh/custom.pub
+    ```
+
 1. Run the Rsync SSH server with
 
     ```sh
-    docker run -it --rm --init -p 22:22/tcp -e PUBKEY=xxxxxx -v /yourpath:/mnt/directory qmcgaw/rsync:ssh-server
+    docker run -it --rm --init -p 22:22/tcp -v $(pwd)/ssh:/ssh:ro -v /yourpath:/mnt/directory qmcgaw/rsync:ssh-server
     ```
-
-    where `PUBKEY` is your SSH client public key
 
 1. If your host is a Linux system running a SSH server, you might want to map the SSH server host keys by adding:
 
