@@ -21,7 +21,7 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
 RUN apk --update --no-cache --progress -q add openssh-client && \
     rm  -rf /tmp/* /var/cache/apk/*
 COPY --from=qmcgaw/rsync:builder /rsync/rsync /usr/bin/rsync
-ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["--help"]
-COPY entrypoint.sh /usr/bin/entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 RUN chmod 500 /entrypoint.sh
