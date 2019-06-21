@@ -20,10 +20,26 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
     image-size="13.3MB"
 RUN apk --update --no-cache --progress -q add openssh && \
     rm  -rf /tmp/* /var/cache/apk/* /etc/ssh/ssh_host_*key* /etc/ssh/ssh_config /etc/ssh/sshd_config && \
-    echo -e "Welcome from your Rsync SSH server\n" > /etc/banner
+    echo -e "Welcome from your Rsync SSH server\n" > /etc/banner && \
+    echo $'\
+    Protocol 2\n\
+    HostKey /etc/ssh/ssh_host_ed25519_key\n\
+    HostKey /etc/ssh/ssh_host_rsa_key\n\
+    HostKey /etc/ssh/ssh_host_ecdsa_key\n\
+    Port 22\n\
+    PermitRootLogin without-password\n\
+    PubkeyAuthentication yes\n\
+    PasswordAuthentication no\n\
+    PermitTunnel yes\n\
+    AllowTcpForwarding yes\n\
+    X11Forwarding no\n\
+    AllowStreamLocalForwarding no\n\
+    Banner /etc/banner\n\
+    UseDNS no\n\
+    Compression delayed\n\
+    LogLevel VERBOSE\n' > /etc/ssh/sshd_config
 EXPOSE 22
 ENTRYPOINT ["/entrypoint.sh"]
-COPY sshd_config /etc/ssh/sshd_config
 COPY --from=qmcgaw/rsync:builder /rsync/rsync /usr/bin/rsync
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 500 /entrypoint.sh
