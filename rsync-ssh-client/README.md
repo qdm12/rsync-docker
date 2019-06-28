@@ -7,13 +7,13 @@
 
 | Image size | RAM usage | CPU usage |
 | --- | --- | --- |
-| 12.2MB | Low to High | Low to High |
+| 12.4MB | Low to High | Low to High |
 
 It is based on:
 
-- [Alpine 3.9](https://alpinelinux.org)
+- [Alpine 3.10](https://alpinelinux.org)
 - [Rsync 3.1.3 built statically from source](https://rsync.samba.org/)
-- [OpenSSH Client](https://pkgs.alpinelinux.org/package/v3.9/main/x86_64/openssh-client)
+- [OpenSSH Client](https://pkgs.alpinelinux.org/package/v3.10/main/x86_64/openssh-client)
 
 ## Setup
 

@@ -1,4 +1,4 @@
-ARG ALPINE_VERSION=3.9
+ARG ALPINE_VERSION=3.10
 ARG BASE_IMAGE=alpine
 
 FROM ${BASE_IMAGE}:${ALPINE_VERSION}
@@ -17,7 +17,7 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
     org.label-schema.docker.cmd.devel="docker run -it --rm qmcgaw/rsync:ssh-client" \
     org.label-schema.docker.params="" \
     org.label-schema.version=${RSYNC_VERSION} \
-    image-size="13.3MB"
+    image-size="13.4MB"
 RUN apk --update --no-cache --progress -q add openssh && \
     rm  -rf /tmp/* /var/cache/apk/* /etc/ssh/ssh_host_*key* /etc/ssh/ssh_config /etc/ssh/sshd_config && \
     echo -e "Welcome from your Rsync SSH server\n" > /etc/banner && \
