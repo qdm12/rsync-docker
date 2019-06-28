@@ -25,6 +25,7 @@ All Rsync are version 3.1.3, built from source with this [Dockerfile](https://gi
 
 ## TODOs
 
+1. Generate ssh keys if none were provided
 1. Run without root
     1. Fix bind mounted file permissions with Gosu, see [fixing permissions for Docker](http://gianluca.dellavedova.org/2018/09/04/fixing-permissions-for-docker/)
     1. Create home directories etc. of non root users for the ssh-server variant
