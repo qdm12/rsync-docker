@@ -7,7 +7,7 @@
 
 | Image size | RAM usage | CPU usage |
 | --- | --- | --- |
-| 12.4MB | Low to High | Low to High |
+| 12.5MB | Low to High | Low to High |
 
 It is based on:
 
@@ -35,6 +35,14 @@ If you want to verify the Rsync server you are connecting to is the right server
 1. Update your `~/.ssh/known_hosts` file with your Rsync server public fingerprint
 1. If you use `qmcgaw/rsync:ssh-server`, you might want to map the server host keys to the container as described
 in its [readme](../rsync-ssh-server/README.md) so that they are not re-generated randomly on each run.
+
+### Syncing
+
+To maintain sync, you can either set
+
+- `-e SYNCPERIOD=30` to run your rsync command every 30 seconds, or
+- `-e WATCHDIR=/data` where `/data` is your bind mounted volume
+ to run rsync on changes made in the `/data` directory. This **only works on Linux**
 
 ## Examples
 

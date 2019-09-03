@@ -17,10 +17,12 @@ LABEL org.label-schema.schema-version="1.0.0-rc1" \
     org.label-schema.docker.cmd.devel="docker run -it --rm qmcgaw/rsync:ssh-client" \
     org.label-schema.docker.params="" \
     org.label-schema.version=${RSYNC_VERSION} \
-    image-size="12.4MB"
-RUN apk --update --no-cache --progress -q add openssh-client && \
+    image-size="12.5MB"
+RUN apk --update --no-cache --progress -q add openssh-client inotify-tools && \
     rm  -rf /tmp/* /var/cache/apk/*
 ENV STRICT_HOST_KEY_CHECKING=no \
+    WATCHDIR= \
+    SYNCPERIOD=
 COPY --from=qmcgaw/rsync:builder /rsync/rsync /usr/bin/rsync
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["--help"]

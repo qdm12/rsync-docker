@@ -43,7 +43,24 @@ else
 fi
 sed -i '/^StrictHostKeychecking=/ d' /etc/ssh/ssh_config
 echo "StrictHostKeychecking=$STRICT_HOST_KEY_CHECKING" >> /etc/ssh/ssh_config
-exec rsync "$@"
+rsync "$@"
+if [ ! -z "$SYNCPERIOD" ]; then
+    while sleep $SYNCPERIOD; do
+        printf "Info: Sleeping for $SYNCPERIOD seconds before running rsync command\n"
+        rsync "$@"
+    done
+elif [ ! -z "$WATCHDIR" ]; then
+    if [ ! -d "$WATCHDIR" ]; then
+        printf "Error: Directory $WATCHDIR does not exist\n"
+        exit 1
+    fi
+    printf "Watching directory $WATCHDIR\n"
+    while true; do
+        inotifywait -r -e modify,create,delete "$WATCHDIR"
+        printf "Detected changes to $WATCHDIR\n\n"
+        rsync "$@"
+    done
+fi
 status=$?
 printf "\n =========================================\n"
 printf " Exit with status $status\n"
