@@ -34,21 +34,21 @@ fi
 if [ ! -f "/etc/ssh/ssh_host_rsa_key" ]; then
     printf "Info: Cannot find RSA host key, generating it...\n"
 	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &> /dev/null
-    printf "Info: Public RSA key:\n"
-    cat /etc/ssh/ssh_host_rsa_key.pub
 fi
+printf "Info: Public RSA key: "
+cat /etc/ssh/ssh_host_rsa_key.pub
 if [ ! -f "/etc/ssh/ssh_host_ecdsa_key" ]; then
     printf "Info: Cannot find ECDSA host key, generating it...\n"
 	ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa &> /dev/null
-    printf "Info: Public ECDSA key:\n"
-    cat /etc/ssh/ssh_host_ecdsa_key.pub
 fi
+printf "Info: Public ECDSA key: "
+cat /etc/ssh/ssh_host_ecdsa_key.pub
 if [ ! -f "/etc/ssh/ssh_host_ed25519_key" ]; then
     printf "Info: Cannot find ED25519 host key, generating it...\n"
 	ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519 &> /dev/null
-    printf "Info: Public ED25519 key:\n"
-    cat /etc/ssh/ssh_host_ed25519_key.pub
 fi
+printf "Info: Public ED25519 key: "
+cat /etc/ssh/ssh_host_ed25519_key.pub
 echo "root:$(date +%s | sha256sum | base64 | head -c 32)" | chpasswd &> /dev/null
 printf "Info: Launching SSH server...\n"
 /usr/sbin/sshd -D -e
