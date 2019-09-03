@@ -8,8 +8,8 @@ printf " =========================================\n"
 printf " == by github.com/qdm12 - Quentin McGaw ==\n\n"
 rsync --version | head -n 1
 if [ ! -d /ssh ]; then
-    printf "/ssh directory does not exist\n"
-    printf "Please thus run in interactive mode to enter password\n"
+    printf "Error: /ssh directory does not exist\n"
+    exit 1
 else
     cp /ssh/* /tmp/
     mkdir -p /root/.ssh

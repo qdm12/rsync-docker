@@ -35,14 +35,21 @@ Note that this image only works with SSH keys.
     docker run -it --rm --init -p 22:22/tcp -v $(pwd)/ssh:/ssh:ro -v /yourpath:/mnt/directory qmcgaw/rsync:ssh-server
     ```
 
-1. If your host is a Linux system running a SSH server, you might want to map the SSH server host keys by adding:
+### Advanced verification
 
-    ```sh
-    -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro \
-    -v /etc/ssh/ssh_host_ecdsa_key:/etc/ssh/ssh_host_ecdsa_key:ro \
-    -v /etc/ssh/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
-    ```
+If your host is a Linux system running an SSH server, you might want to map the SSH server host keys
 
-    to the Docker command above, so that your clients recognize the server fingerprints and don't complain about MITM attacks.
+```sh
+docker ... \
+-v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro \
+-v /etc/ssh/ssh_host_ecdsa_key:/etc/ssh/ssh_host_ecdsa_key:ro \
+-v /etc/ssh/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro \
+-v /etc/ssh/ssh_host_rsa_key.pub:/etc/ssh/ssh_host_rsa_key.pub:ro \
+-v /etc/ssh/ssh_host_ecdsa_key.pub:/etc/ssh/ssh_host_ecdsa_key.pub:ro \
+-v /etc/ssh/ssh_host_ed25519_key.pub:/etc/ssh/ssh_host_ed25519_key.pub:ro \
+qmcgaw/rsync:ssh-server
+```
 
-1. You can then connect to it with the `qmcgaw/rsync:client` container for example.
+to the Docker command above, so that your clients recognize the server fingerprints and don't complain about MITM attacks.
+
+You can then connect to it with the `qmcgaw/rsync:client` container for example.

@@ -17,29 +17,24 @@ It is based on:
 
 ## Setup
 
-- You have an SSH key (recommended)
-    1. Create a directory `ssh` on your host containing:
-
-        ```sh
-        mkdir ssh
-        # Your SSH private key (could be id_ecdsa too for example)
-        cat ~/.ssh/id_rsa > ssh/id_rsa
-        cat ~/.ssh/known_hosts > ssh/known_hosts
-        ```
-
-    1. Run the Rsync SSH client with
-
-        ```sh
-        docker run -it --rm -v $(pwd)/ssh:/ssh:ro qmcgaw/rsync:ssh-client --help
-        ```
-
-- You have a username and password for SSH (not recommended!):
+1. In your home SSH directory `~/.ssh`, you need an SSH private key to connect to your Rsync server which can be any of:
+    - `id_rsa`
+    - `id_ecdsa`
+    - `id_ed25519`
+1. Run the Rsync SSH client with
 
     ```sh
-    docker run -it --rm qmcgaw/rsync:ssh-client --help
+    docker run -it --rm -v ~/.ssh:/ssh:ro qmcgaw/rsync:ssh-client --help
     ```
 
-You might want to set `-e STRICT_HOST_KEY_CHECKING=no` if you encounter server host key errors.
+### Advanced verification
+
+If you want to verify the Rsync server you are connecting to is the right server:
+
+1. Set the environment variable `-e STRICT_HOST_KEY_CHECKING=yes`
+1. Update your `~/.ssh/known_hosts` file with your Rsync server public fingerprint
+1. If you use `qmcgaw/rsync:ssh-server`, you might want to map the server host keys to the container as described
+in its [readme](../rsync-ssh-server/README.md) so that they are not re-generated randomly on each run.
 
 ## Examples
 
