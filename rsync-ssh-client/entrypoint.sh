@@ -1,12 +1,34 @@
 #!/bin/sh
 
-printf "\n =========================================\n"
-printf " =========================================\n"
-printf " =========== Rsync + SSH Client ==========\n"
-printf " =========================================\n"
-printf " =========================================\n"
-printf " == by github.com/qdm12 - Quentin McGaw ==\n\n"
-rsync --version | head -n 1
+exitIfNotIn(){
+  # $1 is the name of the variable to check - not the variable itself
+  # $2 is a string of comma separated possible values
+  var="$(eval echo "\$$1")"
+  for value in ${2//,/ }
+  do
+    if [ "$var" = "$value" ]; then
+      return 0
+    fi
+  done
+  printf "[ERROR] Environment variable $1 cannot be '$var' and must be one of the following: "
+  for value in ${2//,/ }
+  do
+    printf "$value "
+  done
+  printf "\n"
+  exit 1
+}
+
+exitIfNotIn LOG "off,start,on"
+if [ "$LOG" != "off" ]; then
+    printf "\n =========================================\n"
+    printf " =========================================\n"
+    printf " =========== Rsync + SSH Client ==========\n"
+    printf " =========================================\n"
+    printf " =========================================\n"
+    printf " == by github.com/qdm12 - Quentin McGaw ==\n\n"
+    rsync --version | head -n 1
+fi
 if [ ! -d /ssh ]; then
     printf "[ERROR] /ssh directory does not exist\n"
     exit 1
@@ -34,7 +56,9 @@ else
             filename="$(basename $f)"
             mv "$f" "/root/.ssh/$filename"
         fi
-        printf "[INFO] Public key $f: $output\n"
+        if [ "$LOG" != "off" ]; then
+            printf "[INFO] Public key $f: $output\n"
+        fi
     done
     if [ $success = 0 ]; then
         printf "[ERROR] Please have at least one valid private key in /ssh\n"
@@ -43,22 +67,40 @@ else
 fi
 sed -i '/^StrictHostKeychecking=/ d' /etc/ssh/ssh_config
 echo "StrictHostKeychecking=$STRICT_HOST_KEY_CHECKING" >> /etc/ssh/ssh_config
-rsync "$@"
+if [ "$LOG" = "on" ]; then
+    rsync "$@" 2>&1
+else
+    rsync "$@" > /dev/null 2>&1
+fi
 if [ ! -z "$SYNCPERIOD" ]; then
     while sleep $SYNCPERIOD; do
-        printf "[INFO] Sleeping for $SYNCPERIOD seconds before running rsync command\n"
-        rsync "$@"
+        if [ "$LOG" = "on" ]; then
+            printf "[INFO] Sleeping for $SYNCPERIOD seconds before running rsync command\n"
+            rsync "$@" 2>&1
+        else
+            rsync "$@" > /dev/null 2>&1
+        fi
     done
 elif [ ! -z "$WATCHDIR" ]; then
     if [ ! -d "$WATCHDIR" ]; then
         printf "[ERROR] Directory $WATCHDIR does not exist\n"
         exit 1
     fi
-    printf "[INFO] Watching directory $WATCHDIR\n"
+    if [ "$LOG" != "off" ]; then
+        printf "[INFO] Watching directory $WATCHDIR\n"
+    fi
     while true; do
-        inotifywait -r -e modify,create,delete "$WATCHDIR"
-        printf "[INFO] Detected changes to $WATCHDIR\n\n"
-        rsync "$@"
+        if [ "$LOG" = "on" ]; then
+            inotifywait -r -e modify,create,delete "$WATCHDIR" 2>&1
+        else
+            inotifywait -r -e modify,create,delete "$WATCHDIR" > /dev/null 2>&1
+        fi
+        if [ "$LOG" = "on" ]; then
+            printf "[INFO] Detected changes to $WATCHDIR\n\n"
+            rsync "$@" 2>&1
+        else
+            rsync "$@" > /dev/null 2>&1
+        fi
     done
 fi
 status=$?

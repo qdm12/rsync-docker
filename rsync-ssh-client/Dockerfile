@@ -20,7 +20,8 @@ RUN apk --update --no-cache --progress -q add openssh-client inotify-tools && \
     rm  -rf /tmp/* /var/cache/apk/*
 ENV STRICT_HOST_KEY_CHECKING=no \
     WATCHDIR= \
-    SYNCPERIOD=
+    SYNCPERIOD= \
+    LOG=on
 COPY --from=qmcgaw/rsync:builder /rsync/rsync /usr/bin/rsync
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["--help"]
