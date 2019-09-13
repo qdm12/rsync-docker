@@ -1,9 +1,10 @@
-version: '3'
+version: "3.7"
 services:
   rsync:
     build: .
     image: qmcgaw/rsync:ssh-server
     container_name: rsync-server
+    init: true
     volumes:
       - ./data:/data
       - ./ssh:/ssh
