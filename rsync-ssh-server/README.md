@@ -53,3 +53,10 @@ qmcgaw/rsync:ssh-server
 to the Docker command above, so that your clients recognize the server fingerprints and don't complain about MITM attacks.
 
 You can then connect to it with the `qmcgaw/rsync:client` container for example.
+
+### Environment variables
+
+- `LOG` can be set to
+    - `on` to show start logs and sshd logs on the server side, as well as an SSH banner to the client
+    - `start` to show start logs on the server side, as well as an SSH banner to the client
+    - `off` to show nothing on the server side and no SSH banner
