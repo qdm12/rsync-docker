@@ -67,19 +67,16 @@ else
 fi
 sed -i '/^StrictHostKeychecking=/ d' /etc/ssh/ssh_config
 echo "StrictHostKeychecking=$STRICT_HOST_KEY_CHECKING" >> /etc/ssh/ssh_config
-if [ "$LOG" = "on" ]; then
-    rsync "$@" 2>&1
-else
-    rsync "$@" > /dev/null 2>&1
+if [ "$LOG" != "off" ]; then
+    printf "[INFO] `date +"%H:%M:%S"` First Rsync run...\n"
 fi
+rsync "$@" 2>&1
 if [ ! -z "$SYNCPERIOD" ]; then
     while sleep $SYNCPERIOD; do
         if [ "$LOG" = "on" ]; then
-            printf "[INFO] Sleeping for $SYNCPERIOD seconds before running rsync command\n"
-            rsync "$@" 2>&1
-        else
-            rsync "$@" > /dev/null 2>&1
+            printf "[INFO] `date +"%H:%M:%S"` Sleeping for $SYNCPERIOD seconds before running rsync command\n"
         fi
+        rsync "$@" 2>&1
     done
 elif [ ! -z "$WATCHDIR" ]; then
     if [ ! -d "$WATCHDIR" ]; then
@@ -87,7 +84,7 @@ elif [ ! -z "$WATCHDIR" ]; then
         exit 1
     fi
     if [ "$LOG" != "off" ]; then
-        printf "[INFO] Watching directory $WATCHDIR\n"
+        printf "[INFO] `date +"%H:%M:%S"` Watching directory $WATCHDIR\n"
     fi
     while true; do
         if [ "$LOG" = "on" ]; then
@@ -96,11 +93,9 @@ elif [ ! -z "$WATCHDIR" ]; then
             inotifywait -r -e modify,create,delete "$WATCHDIR" > /dev/null 2>&1
         fi
         if [ "$LOG" = "on" ]; then
-            printf "[INFO] Detected changes to $WATCHDIR\n\n"
-            rsync "$@" 2>&1
-        else
-            rsync "$@" > /dev/null 2>&1
+            printf "[INFO] `date +"%H:%M:%S"` Detected changes to $WATCHDIR\n\n"
         fi
+        rsync "$@" 2>&1
     done
 fi
 status=$?
