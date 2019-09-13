@@ -31,11 +31,11 @@ if [ "$LOG" != "off" ]; then
 fi
 
 if [ ! -d /ssh ]; then
-    printf "Error: /ssh directory does not exist\n"
+    printf "[ERROR] /ssh directory does not exist\n"
     exit 1
 fi
 if [ "$LOG" = "on" ]; then
-    echo "Connected to Rsync SSH server" > /etc/banner
+    echo "[INFO] Connected to Rsync SSH server" > /etc/banner
 fi
 mkdir -p /root/.ssh
 chmod 700 /root/.ssh
@@ -51,44 +51,44 @@ do
         cat "$f" >> /root/.ssh/authorized_keys
     fi
     if [ "$LOG" != "off" ]; then
-        printf "$f: $output\n"
+        printf "[INFO] Public key $f: $output\n"
     fi
 done
 if [ $success = 0 ]; then
-    printf "Error: Please have at least one valid public key in /ssh\n"
+    printf "[ERROR] Please have at least one valid public key in /ssh\n"
     exit 1
 fi
 if [ ! -f "/etc/ssh/ssh_host_rsa_key" ]; then
     if [ "$LOG" != "off" ]; then
-        printf "Info: Cannot find RSA host key, generating it...\n"
+        printf "[INFO] Cannot find RSA host key, generating it...\n"
     fi
 	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &> /dev/null
 fi
 if [ "$LOG" != "off" ]; then
-    printf "Info: Public RSA key: "
+    printf "[INFO] Host RSA public key: "
     cat /etc/ssh/ssh_host_rsa_key.pub
 fi
 if [ ! -f "/etc/ssh/ssh_host_ecdsa_key" ]; then
     if [ "$LOG" != "off" ]; then
-        printf "Info: Cannot find ECDSA host key, generating it...\n"
+        printf "[INFO] Cannot find ECDSA host key, generating it...\n"
     fi
 	ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa &> /dev/null
 fi
 if [ "$LOG" != "off" ]; then
-    printf "Info: Public ECDSA key: "
+    printf "[INFO] Host ECDSA public key: "
     cat /etc/ssh/ssh_host_ecdsa_key.pub
 fi
 if [ ! -f "/etc/ssh/ssh_host_ed25519_key" ]; then
-    printf "Info: Cannot find ED25519 host key, generating it...\n"
+    printf "[INFO] Cannot find ED25519 host key, generating it...\n"
 	ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519 &> /dev/null
 fi
 if [ "$LOG" != "off" ]; then
-    printf "Info: Public ED25519 key: "
+    printf "[INFO] Host ED25519 public key: "
     cat /etc/ssh/ssh_host_ed25519_key.pub
 fi
 echo "root:$(date +%s | sha256sum | base64 | head -c 32)" | chpasswd &> /dev/null
 if [ "$LOG" != "off" ]; then
-    printf "Info: Launching SSH server...\n"
+    printf "[INFO] Launching SSH server...\n"
 fi
 if [ "$LOG" = "off" ] || [ "$LOG" = "start" ]; then
     /usr/sbin/sshd -D -e > /dev/null 2>&1
