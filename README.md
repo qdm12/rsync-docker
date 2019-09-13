@@ -55,9 +55,7 @@ All Rsync are version 3.1.3, built from source with this [Dockerfile](https://gi
     1. Fix bind mounted file permissions with Gosu, see [fixing permissions for Docker](http://gianluca.dellavedova.org/2018/09/04/fixing-permissions-for-docker/)
     1. Create home directories etc. of non root users for the ssh-server variant
 1. More examples
-1. Periodic execution of Rsync SSH client
-    - With Golang binary, or with crontab
-1. SSH server with passwords
+1. Periodic/Inotify execution of Rsync with Golang binary for `qmcgaw/rsync`
 1. Healthcheck
 
 ## License

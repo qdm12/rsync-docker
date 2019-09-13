@@ -90,10 +90,10 @@ echo "root:$(date +%s | sha256sum | base64 | head -c 32)" | chpasswd &> /dev/nul
 if [ "$LOG" != "off" ]; then
     printf "[INFO] Launching SSH server...\n"
 fi
-if [ "$LOG" = "off" ] || [ "$LOG" = "start" ]; then
-    /usr/sbin/sshd -D -e > /dev/null 2>&1
-else
+if [ "$LOG" = "on" ]; then
     /usr/sbin/sshd -D -e 2>&1
+else
+    /usr/sbin/sshd -D -e > /dev/null 2>&1
 fi
 status=$?
 printf "\n =========================================\n"
