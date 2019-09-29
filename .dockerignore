@@ -1,4 +1,10 @@
-*.md
+.git
+.vscode
+.gitignore
+**/*.yml
+**/*.md
+**/.gitignore
+**/data
+**/ssh
 LICENSE
-.git/
 title.png

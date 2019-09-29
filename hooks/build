@@ -1,22 +1,24 @@
 #!/bin/bash
 
+BASE_IMAGE=alpine
+ALPINE_VERSION=3.10
 RSYNC_VERSION=3.1.3
+VCS_REF=`git rev-parse --short HEAD`
 docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-             --build-arg VCS_REF=`git rev-parse --short HEAD` \
+             --build-arg VCS_REF=$VCS_REF \
              --build-arg RSYNC_VERSION=$RSYNC_VERSION \
-             -t $DOCKER_REPO:builder .
+             --target latest \
+             -t $IMAGE_NAME .
 docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-             --build-arg VCS_REF=`git rev-parse --short HEAD` \
+             --build-arg VCS_REF=$VCS_REF \
              --build-arg RSYNC_VERSION=$RSYNC_VERSION \
-             -t $DOCKER_REPO:ssh-client rsync-ssh-client
+             --target ssh-client \
+             -t $DOCKER_REPO:ssh-client .
 docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-             --build-arg VCS_REF=`git rev-parse --short HEAD` \
+             --build-arg VCS_REF=$VCS_REF \
              --build-arg RSYNC_VERSION=$RSYNC_VERSION \
-             -t $IMAGE_NAME rsync
-docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-             --build-arg VCS_REF=`git rev-parse --short HEAD` \
-             --build-arg RSYNC_VERSION=$RSYNC_VERSION \
-             -t $DOCKER_REPO:ssh-server rsync-ssh-server
+             --target ssh-server \
+             -t $DOCKER_REPO:ssh-server .
 # $IMAGE_NAME is automatically pushed
 docker push $DOCKER_REPO:ssh-client
 docker push $DOCKER_REPO:ssh-server

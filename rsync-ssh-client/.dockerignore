@@ -1,5 +1,0 @@
-*.md
-.gitignore
-data
-ssh
-docker-compose.yml

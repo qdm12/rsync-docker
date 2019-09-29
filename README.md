@@ -34,18 +34,12 @@ All Rsync are version 3.1.3, built from source with this [Dockerfile](https://gi
     cd rsync-docker
     ```
 
-1. Build the Rsync static binary
-
-    ```sh
-    docker build -t qmcgaw/rsync:builder .
-    ```
-
 1. Build the image of your choice
 
     ```sh
-    docker build -t qmcgaw/rsync rsync
-    docker build -t qmcgaw/rsync:ssh-client rsync-ssh-client
-    docker build -t qmcgaw/rsync:ssh-server rsync-ssh-server
+    docker build --target latest -t qmcgaw/rsync .
+    docker build --target ssh-client -t qmcgaw/rsync:ssh-client .
+    docker build --target ssh-server -t qmcgaw/rsync:ssh-server .
     ```
 
 ## TODOs
